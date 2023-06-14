@@ -2,6 +2,8 @@
 \usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
 \usepackage{amssymb}
 \usepackage{yhmath}
+\usepackage{amsmath}
+\usepackage{tkz-euclide}
 %Set the font (output) encoding
 %--------------------------------------
 \usepackage[T1]{fontenc} %Not needed by LuaLaTeX or XeLaTeX
@@ -13,8 +15,37 @@
 \geometry{a4paper} % or letter or a5paper or ... etc
 % \geometry{landscape} % rotated page geometry
 
-% See the ``Article customise'' template for come common customisations
+\usepackage{etoolbox} % for \patchcmd
 
+% make \tkzDrawLine compatible with the babel TikZ library
+\makeatletter
+\patchcmd{\tkz@DrawLine}{\begingroup}{\begingroup\makeatletter}{}{}
+\makeatother
+
+\usetikzlibrary{babel, angles}
+
+% the macro is from: https://tex.stackexchange.com/questions/53947/typesetting-coordinates
+\usepackage{xparse}
+\ExplSyntaxOn
+\NewDocumentCommand{\coord}{sO{}m}
+ {
+  \IfBooleanTF{#1}
+   {\left(\coord_print:n {#3}\right)}
+   {\mathopen{#2(}\coord_print:n {#3}\mathclose{#2)}}
+ }
+
+\seq_new:N \l_coord_list_seq
+\tl_new:N \l_coord_last_tl
+\cs_new_protected:Npn \coord_print:n #1
+ {
+  \seq_set_split:Nnn \l_coord_list_seq { , } { #1 }
+  \seq_pop_right:NN \l_coord_list_seq \l_coord_last_tl
+  \seq_map_inline:Nn \l_coord_list_seq { ##1 , }
+  \tl_use:N \l_coord_last_tl
+ }
+\ExplSyntaxOff
+
+% See the ``Article customise'' template for come common customisations
 \title{Olympiades Panafricaines Mathématiques 2023 \newline Quelques solutions}
 \author{KouakouSchool}
 \date{\today} % delete this line to display the current date
@@ -33,20 +64,22 @@ Ce document présente des solutions aux différents problèmes rencontrés lors 
 
 \chapter{Enoncés}
 \section{Jour 1}
-\subsection{Problème 1: (taux de réussite: 22/178)}
+\subsection{Problème 1}
 Dans un triangle  $ABC$ tel que $AB < AC, D$ est un point du segment $[AC]$ tel que $BD=CD$. Une droite parallèle à $(BD)$ coupe le segment
  $[BC]$ en  $E$ et coupe la droite  $(AB)$ en  $F$.  $G$ est le point d'intersection des droites  $(AE)$ et  $(BD)$ par  $G$. 
  \begin{equation}
- \textrm{Montrer que} \quad  BCG = BCF.
+ \textrm{Montrer que} \quad  \widehat{BCG} = \widehat{BCF}.
+ \label{question-pb-1}
  \end{equation}
  
-\subsection{Problème 2: (taux de réussite: 20/178)}
+\subsection{Problème 2}
 Trouver tous les nombres entiers naturels non nuls $m$ et $n$ qui n'ont pas de diviseur commun plus grand que $1$ tels que :
 \begin{equation}
 m^3 + n^3 \quad \textrm{divise} \quad m^2 + 20mn + n^2.
+\label{equation-pb-2}
 \end{equation}
 
-\subsection{Problème 3: (taux de réussite: 13/178)}
+\subsection{Problème 3}
 On considère la suite de nombres réels définie par: 
 \begin{equation}
 \left\{
@@ -55,43 +88,252 @@ On considère la suite de nombres réels définie par:
 	x_{n+1} = cx_{n} + \sqrt{c^2 - 1}\sqrt{x_{n}^2 - 1}  \quad \textrm{pour tout} \quad n \geq 1.
 	\end{array}
 \right.
+\label{equation-pb-3}
 \end{equation}
 
 Montrer que si $c$ est un nombre entier naturel non nul, alors $x_{n}$ est un entier pour tout $n \geq 1$.
 
 \section{Jour 2}
-\subsection{Problème 4: (taux de réussite: 4/178)}
+\subsection{Problème 4}
 Manzi possède $n$ timbres et un album avec $10$ pages. Il distribue les $n$ timbres dans l'album de sorte que chaque page contienne un nombre distinct de timbres. Il trouve que, peu importe comment il fait cela, il y a toujours un ensemble de $4$ pages tels que le nombre total de timbres dans ces $4$ pages soit au moins $\frac{n}{2}$.
 \begin{equation}
 \textrm{Déterminer la valeur maximale possible de} \quad n.
+\label{question-pb-4}
 \end{equation}
 
-\subsection{Problème 5: (taux de réussite: 17/178)}
+\subsection{Problème 5}
 Soient $a$ et $b$ des nombres réels avec $a \neq 0$. Soit:
 \begin{equation}
 P(x) = ax^4 - 4ax^3 + (5a + b)x^2 - 4bx + b
+\label{equation-pb-5}
 \end{equation}
 Montrer que toutes les racines de $P(x)$ sont réelles et strictement positives si et seulement si $a=b$.
 
-\subsection{Problème 6: (taux de réussite: 3/178)}
+\subsection{Problème 6}
 Soit $ABC$ un triangle dont tous les angles sont aigus avec $AB < AC$. Soient $D, E$ et $F$ les pieds des perpendiculaires issues de $A, B$ et $C$ aux côtés opposés, respectivement. Soit $P$ le pied de la perpendiculaire issue de $F$ sur la droite $(DE)$. La droite $(FP)$ et le cercle circonscrit au triangle $BDF$ se rencontrent encore en $Q$.
 
 \begin{equation}
 \textrm{Montrer que} \quad \widehat{PBQ} = \widehat{PAD}.
+\label{question-pb-6}
 \end{equation}
 
 \chapter{Solutions}
 \section{Jour 1}
-\subsection{Probleme 1}
+\subsection{Problème 1: (taux de réussite: 22/178)}
+\subsubsection{Solution 1 - Utilisation d'un repère orthonormal}
+
+Ci-dessous se trouvent la construction géométrique de la figure résultant du problème posé. Nous avons rajouté le milieu du segment $[BC]$ qu'on appellera $O$, le point $D'$ tel que la distance $OC$ égale à la distance $OD'$ et $D'$ appartient à $[OD)$ et le point $H$, le point de $(FC)$ tel que $(GH)$ est perpendiculaire à $(BC)$.
+\begin{tikzpicture}[scale=3.5]
+\tkzDefPoint(0,0){O}
+\tkzDefPoint(-1,0){B}
+\tkzDefPoint(1,0){C}
+\tkzDefPoint(0,0.8){D}
+\tkzDefPoint(0,1){D'}
+\tkzDefPoint(-0.5,1.2){A}
+\tkzDefPoint(0.35,0){E}
+\tkzDrawSegment[dashed](O,D')
+\tkzDrawLine(A,E)
+\tkzDrawLine(B,D)
+\tkzInterLL(A,E)(B,D)
+	\tkzGetPoint{G}
+\tkzDrawPolygon(A,B,C)
+\tkzDrawLine(A,B)
+\tkzDefLine[parallel=through E](B,D) \tkzGetPoint{e}
+	\tkzDrawLine(E,e)
+\tkzInterLL(E,e)(A,B)
+	\tkzGetPoint{F}
+\tkzDefLine[perpendicular=through G](B,C) \tkzGetPoint{g}
+\tkzInterLL(G,g)(F,C)
+	\tkzGetPoint{H}
+\tkzDrawSegment[dashed](G,H)
+\tkzDrawSegment(F,C)
+\tkzDrawSegment(F,E)
+\tkzDrawSegment(F,B)
+\tkzDrawSegment(G,C)
+\tkzPicAngle["$\alpha$",draw=red,
+             <->,angle eccentricity=1.2,
+             angle radius=1cm](G,C,B)
+\tkzPicAngle["$\beta$",draw=red,
+             <->,angle eccentricity=1.2,
+             angle radius=1cm](B,C,F)
+\tkzLabelPoints(A,B,C,D,E,F,G,H,O)
+\tkzDrawPoints(A,B,C,D,E,F,G,H,O)
+\end{tikzpicture}
+ 
+ \begin{equation}
+ \textrm{Montrons que} \quad \widehat{BCG} = \widehat{BCF} \quad \textrm{c'est-à-dire que} \quad \hat{\alpha} = \hat{\beta}.
+ \label{question-pb-1}
+ \end{equation}
+
+Pour cela, nous allons considérer le repère orthonormal formé par les points $O$, $C$ et $D'$. Il s'agit bien d'un repère orthonormal car la droite $(OD)$ est perpendiculaire à la droite $(OC)$ puisque $(OD)$ est la médiatrice du segment $[BC]$ ($O$ est milieu de $[BC]$ et $BD = CD$) et la distance $OD'$ est égale à la distance $OC$.
+
+\bigskip
+
+Les coordonnées des différents points $A, B, C, D, E$ et $O$ sont les suivants. 
+\begin{equation}
+O = \coord[\Big]{0, 0}
+\label{coord-o}
+\end{equation}
+
+\begin{equation}
+C = \coord[\Big]{1, 0}
+\label{coord-c}
+\end{equation}
+
+\begin{equation}
+D = \coord[\Big]{0, d}, \quad \textrm{où} \quad d \quad \textrm{est une variable}.
+\label{coord-d}
+\end{equation}
+
+\begin{equation}
+B = \coord[\Big]{-1, 0}
+\label{coord-b}
+\end{equation}
+
+\begin{equation}
+A = \coord[\Big]{-\alpha, \beta}, \quad \textrm{où} \quad 0 < \alpha < 1 \quad \textrm{et} \quad \beta > 1 \quad \textrm{sont des variables}.
+\label{coord-a}
+\end{equation}
+
+\begin{equation}
+E = \coord[\Big]{\gamma, 0}, \quad \textrm{où} \quad -1 < \gamma < 1 \quad \textrm{où} \quad \gamma \quad \textrm{est une variable}.
+\label{coord-e}
+\end{equation}
+
+La variable $\gamma$ est indépendante des autres variables d'après l'énoncé car le point $E$ est un point quelconque du segment $[BC]$.
+La relation entre $\beta$, $\alpha$ et $d$ peut être déterminée d'après la position de $D$ par rapport aux points $A$, $B$ et $C$.
+
+\bigskip
+
+\textit{Déterminons la relation entre $\beta$, $\alpha$ et $d$:}
+
+\smallskip
+
+La droite $(CD)$ a pour équation du type: $ax + by + c=0$. En remplaçant les coordonnées de $C$ et $D$ dans cette équation, l'on obtient:
+\begin{equation}
+(DC): \quad x + \frac{1}{d}y - 1 = 0
+\end{equation}
+
+\smallskip
+Le point $A$ appartient à la droite $(DC)$, donc: $ -\alpha + \frac{1}{d} \beta - 1 = 0$. Cela implique que:
+
+\begin{equation}
+\beta = d(1 + \alpha)
+\label{relation-beta-alpha}
+\end{equation}
+
+\bigskip
+
+\textit{Déterminons les valeurs des coordonnées de $F$ et $G$}
+
+\smallskip
+
+Concernant le point $F$, $F\coord[\Big]{e, f}$ appartient à la droite $(AB)$ et $(FE)$ est perpendiculaire à la normale $\vec{u}$ à la droite $(BD)$.
+\begin{equation}
+(BD): \quad x - \frac{1}{d}y + 1 = 0
+\label{equation-bd}
+\end{equation}
+
+\begin{equation}
+\vec{u} \coord[\Big]{1, -\frac{1}{d}}
+\label{coord-vecu}
+\end{equation}
+
+\begin{equation}
+(AB): \quad x - \frac{1 - \alpha}{d(1+\alpha)}y + 1 = 0
+\label{equation-ab}
+\end{equation}
+
+donc:
+\[\overrightarrow{FE}.\vec{u} = 0 \quad et \quad F \in (AB)\]
+\[\left\{
+	\begin{array}{l}
+	e - \frac{1 - \alpha}{d(1 + \alpha)}f + 1 = 0 \\
+	(\gamma - e).1 + \frac{1}{d}.f = 0
+	\end{array}
+\right.\]
+
+ainsi:
+
+\[\left\{
+	\begin{array}{l}
+	e = \frac{\alpha\gamma - \gamma - \alpha - 1}{2\alpha} \\
+	f = - \frac{d(\gamma + 1)(\alpha + 1)}{2\alpha}
+	\end{array}
+\right.\]
+
+\begin{equation}
+F\coord[\Big]{\frac{\alpha\gamma - \gamma - \alpha - 1}{2\alpha}, - \frac{d(\gamma + 1)(\alpha + 1)}{2\alpha}}
+\label{coord-f}
+\end{equation}
+
+\smallskip
+Concernant le point $G$, on a:
+\[ G\coord[\Big]{g, h} \in (BD) \cap (AE) \]
+
+\begin{equation}
+(AE): \quad x + \frac{\alpha + \gamma}{d(1 + \alpha)}y - \gamma = 0
+\label{equation-ae}
+\end{equation}
+
+L'équation de la droite $(BD)$ est donnée par la relation (\ref{equation-bd}). Donc:
+
+\[\left\{
+	\begin{array}{l}
+	g - \frac{1}{d}h + 1 = 0 \\
+	g + \frac{\alpha + \gamma}{d(1 + \alpha)}h - \gamma = 0
+	\end{array}
+\right.\]
+
+ainsi:
+
+\[\left\{
+	\begin{array}{l}
+	g = \frac{\alpha(\gamma - 1)}{1 + 2\alpha + \gamma} \\
+	h = \frac{d(1 + \gamma)(1+\alpha)}{1 + 2\alpha + \gamma}
+	\end{array}
+\right.\]
+
+\begin{equation}
+G\coord[\Big]{\frac{\alpha(\gamma - 1)}{1 + 2\alpha + \gamma}, \frac{d(1 + \gamma)(1+\alpha)}{1 + 2\alpha + \gamma}}
+\label{coord-g}
+\end{equation}
+
+\bigskip
+
+Pour le point $H$, on a $H \in (FC)$ tel que $(GH) \perp (BC)$. L'abscisse de $H$ est égal à $g$ c'est-à-dire l'abscisse de $G$ car $(GH) \perp (BC)$ et $(BC)$ est l'axe des abscisses, on note donc  $H\coord[\Big]{g, i}$.
+
+\begin{equation}
+(FC): \quad x + \frac{1 - e}{f}y - 1 = 0
+\label{equation-fc}
+\end{equation}
+
+Donc:
+\[g + \frac{1 - e}{f}i - 1 = 0\]
+
+$1 - e \neq 0$, sinon $g = 1$. Il s'agit d'un cas limite impossible car $G \in [BC]$. De ce fait, nous pouvons écrire que:
+
+\[i = \frac{1 - g}{1 - e}f \]
+
+D'où, d'après (\ref{coord-f}) et par la suite (\ref{coord-g}), on a:
+
+\[ i = -\frac{d(\gamma + 1)(\alpha + 1)}{1 + 2\alpha + \gamma} = -h \]
+
+Donc $G\coord[\Big]{g, h}$ et $H\coord[\Big]{g, -h}$, ainsi $CG = CH$ et $(HG) \perp (CB)$. D'où:
+
+\[\widehat{BCG} = \widehat{OCG} = \widehat{HCO} = \widehat{HCB} = \widehat{FCB}\]
+
+Par conséquent, nous avons montré que:
+
+\[\widehat{BCG} = \widehat{BCF} \quad \textrm{c'est-à-dire que} \quad \hat{\alpha} = \hat{\beta}\]
 
 
-
-\subsection{Probleme 2}
-\subsection{Probleme 3}
+\subsection{Problème 2: (taux de réussite: 20/178)}
+\subsection{Problème 3: (taux de réussite: 13/178)}
 
 \section{Jour 2}
-\subsection{Probleme 4}
-\subsection{Probleme 5}
-\subsection{Probleme 6}
+\subsection{Problème 4: (taux de réussite: 4/178)}
+\subsection{Problème 5: (taux de réussite: 17/178)}
+\subsection{Problème 6: (taux de réussite: 3/178)}
 
 \end{document}
