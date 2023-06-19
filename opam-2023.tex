@@ -45,6 +45,9 @@
  }
 \ExplSyntaxOff
 
+% see: https://www.physicsread.com/latex-floor-symbol/
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
 % See the ``Article customise'' template for come common customisations
 \title{Olympiades Panafricaines Mathématiques 2023 \newline Quelques solutions}
 \author{KouakouSchool}
@@ -122,7 +125,7 @@ Soit $ABC$ un triangle dont tous les angles sont aigus avec $AB < AC$. Soient $D
 \subsection{Problème 1: (taux de réussite: 22/178)}
 \subsubsection{Solution 1 - Utilisation d'un repère orthonormal}
 
-Ci-dessous se trouvent la construction géométrique de la figure résultant du problème posé. Nous avons rajouté le milieu du segment $[BC]$ qu'on appellera $O$, le point $D'$ tel que la distance $OC$ égale à la distance $OD'$ et $D'$ appartient à $[OD)$ et le point $H$, le point de $(FC)$ tel que $(GH)$ est perpendiculaire à $(BC)$.
+Ci-dessous se trouve la construction géométrique de la figure résultant du problème posé. Nous avons rajouté le milieu du segment $[BC]$ qu'on appellera $O$, le point $D'$ tel que la distance $OC$ égale à la distance $OD'$ et $D'$ appartient à $[OD)$ et le point $H$, le point de $(FC)$ tel que $(GH)$ est perpendiculaire à $(BC)$.
 \begin{tikzpicture}[scale=3.5]
 \tkzDefPoint(0,0){O}
 \tkzDefPoint(-1,0){B}
@@ -503,7 +506,219 @@ Ainsi, nous pouvons conclure que les valeurs des entiers naturels non nuls $m$ e
 
 
 \subsection{Problème 3: (taux de réussite: 13/178)}
+Pour la suite de nombres réels suivante:
+\begin{equation}
+\left\{
+	\begin{array}{l}
+	x_1 = c \\
+	x_{n+1} = cx_{n} + \sqrt{c^2 - 1}\sqrt{x_{n}^2 - 1}  \quad \textrm{pour tout} \quad n \geq 1.
+	\end{array}
+\right.
+\label{equation-pb-3-sol}
+\end{equation}
 
+Montrons que si $c$ est un nombre entier naturel non nul, alors $x_{n}$ est un entier pour tout $n \geq 1$.
+\subsubsection{Solution 1 - Changement de variable $x_n = cosh(a_n)$}
+Définissons la suite numérique $a_n$ telle que pour tout entier naturel $n$,
+\[x_n = cosh(a_n)\]
+Cette suite est bien définie car la fonction $cosh$ est bijective sur $\mathbb{R^{+}}$.
+En effet, la fonction cosinus hyperbolique est strictement croissante sur $\mathbb{R^{+}}$ (car sa dérivée est la fonction sinus hyperbolique qui est strictement positive sur $\mathbb{R^{+}}$), elle est donc bijective sur $\mathbb{R^{+}}$.
+
+\bigskip
+
+Ainsi, l'équation (\ref{equation-pb-3-sol}) devient:
+\begin{equation}
+\left\{
+	\begin{array}{l}
+	x_n = cosh(a_n) \quad \textrm{pour tout} \quad n \geq 1\\
+	cosh(a_{n+1}) = cosh(a_1)cosh(a_{n}) + \sqrt{cosh(a_1)^2 - 1}\sqrt{cosh(a_{n})^2 - 1}  \quad \textrm{pour tout} \quad n \geq 1.
+	\end{array}
+\right.
+\label{equation-pb-3-sol-cosh}
+\end{equation}
+
+Nous avons les identités remarquables suivantes pour les fonctions $cosh$ (cosinus hyperbolique) et $sinh$ (sinus hyperbolique):
+
+\begin{equation}
+\left\{
+	\begin{array}{l}
+	cosh(x)^2 + sinh(x)^2 = 1 \quad \textrm{pour tout} \quad x \quad \textrm{et} \quad y \quad \textrm{nombres réels}\\
+	cosh(x+y) = cosh(x)cosh(y) +  sinh(x)sinh(y) \quad \textrm{pour tout} \quad x \quad \textrm{et} \quad y \quad \textrm{nombres réels}\\
+	cosh(x) > 0 \quad \textrm{et} \quad sinh(x) > 0 \quad \textrm{pour tout} \quad x \quad \textrm{et} \quad y \quad \textrm{nombres réels strictement positifs}
+	\end{array}
+\right.
+\label{equation-pb-3-relation-cosh}
+\end{equation}
+
+La seconde relation de l'équation (\ref{equation-pb-3-sol-cosh}) permet de dire:
+
+\[cosh(a_{n+1}) = cosh(a_1)cosh(a_{n}) + sinh(a_1)sinh(a_{n}) \]
+
+Cela implique d'après (\ref{equation-pb-3-relation-cosh}) que:
+
+\begin{equation}
+cosh(a_{n+1}) = cosh(a_1 + a_n)
+\label{equation-pb-3-relation-cosh-an}
+\end{equation}
+
+La fonction cosinus hyperbolique est bijective. Ainsi l'équation (\ref{equation-pb-3-relation-cosh-an}) implique que:
+
+\begin{equation}
+a_{n+1} = a_1 + a_n
+\label{equation-pb-3-relation-an}
+\end{equation}
+
+Par récurrence sur $n$, nous montrons que $a_{n} = n*a_{1}$ pour tout $n \geq 1$. En effet, pour $n=1$, cela est vrai car $a_{1} = 1*a_{1}$. Supposons que pour un certain $n \geq 1$, $\forall k \leq n$, $a_{k} = k*a_{1}$. Alors, on a:
+
+\[a_{n+1} = a_{n} + a_{1} \implies a_{n+1} = n*a_{1} + a_{1}\]
+
+Donc:
+
+\[a_{n+1} = (n+1)a_{1} \]
+
+Ainsi, par récurrence:
+
+\begin{equation}
+a_{n} = n*a_{1} \quad \textrm{pour tout} \quad n \geq 1 \quad \textrm{entier naturel}.
+\label{equation-pb-3-reccur-an}
+\end{equation}
+
+Donc:
+
+\begin{equation}
+\left\{
+	\begin{array}{l}
+cosh(a_{1}) = c\\
+x_{n} = cosh(na_{1}) \quad \textrm{pour tout} \quad n \geq 1 \quad \textrm{entier naturel}.
+\end{array}
+\right.
+\label{equation-pb-3-reccur-xn}
+\end{equation}
+
+\bigskip
+
+\textit{Montrons que si $cosh(x)$ est un entier alors pour tout entier naturel $n$, $cosh(nx)$ est un entier naturel.}
+
+\bigskip
+
+Pour tous nombres réels $a$ et $b$ et tout entier naturels $n$, on a:
+
+\[(a + b)^n = \sum_{k=0}^{n} c_{k}^{n} a^{k}b^{n-k}\]
+
+Car lorsqu'on choisit $a$ dans $k$ termes $a + b$, l'on choisira automatiquement $b$, $n-k$ fois pour former un terme de $(a+b)^n$. De plus, nous pouvons calculer la valeur de $c_{k}^{n}$ comme étant le nombre de manière de choisir $k$ éléments parmi $n$ éléments sans tenir compte de l'ordre, c'est à dire:
+
+\[c_{k}^{n} = \binom{n}{k} \]
+
+Or 
+
+\[\binom{n}{n-k} = \binom{n}{k} \implies c_{k}^{n} = c_{n-k}^{n}\]
+
+D'où:
+
+\begin{equation}
+(a + b)^n  = \sum_{k=0}^{\floor{\frac{n}{2}}} c_{k}^{n} (a^{k}b^{n-k} + a^{n-k}b^{k}) - \delta_{\floor{\frac{n}{2}}, \frac{n}{2}} c_{\floor{\frac{n}{2}}}^{n} a^{\frac{n}{2}}b^{\frac{n}{2}}
+\label{equation-pb-3-sumabpown-2}
+\end{equation}
+ 
+ Où la notation $\floor{x}$ signifie, la partie entière de $x$ et $\delta_{a,b}$ est telle que:
+ 
+ \[\delta_{a, b} = \left\{
+	\begin{array}{l}
+	1 \quad \textrm{si} \quad a = b\\
+	0 \quad \textrm{si} \quad a \neq b
+	\end{array}
+\right.\]
+
+Ainsi, pour $a = e^{x}$ et $b = e^{-x}$, on a: $2^{n}cosh(x)^{n} = (a + b)^{n}$. Ce qui donne donc:
+
+\[
+2^{n}cosh(x)^{n} = \sum_{k=0}^{\floor{\frac{n}{2}}} c_{k}^{n} (e^{(n-2k)x} + e^{-(n-2k)x}) - \delta_{(\floor{\frac{n}{2}}, \frac{n}{2})} c_{\frac{n}{2}}^{n}
+\]
+
+Donc:
+
+\[
+2^{n}cosh(x)^{n} = \sum_{k=0}^{\floor{\frac{n}{2}}} c_{k}^{n} 2cosh((n-2k)x) - \delta_{(\floor{\frac{n}{2}}, \frac{n}{2})} c_{\frac{n}{2}}^{n}
+\]
+
+\[
+2c_{0}^{n} cosh(nx) = 2^{n}cosh(x)^{n} - \sum_{k=1}^{\floor{\frac{n}{2}}} 2c_{k}^{n}cosh((n-2k)x) + \delta_{(\floor{\frac{n}{2}}, \frac{n}{2})} c_{\frac{n}{2}}^{n}
+\]
+
+Or $c_{0}^{n} = \binom{n}{0} = 1$, donc:
+
+\begin{equation}
+cosh(nx) = 2^{n-1}cosh(x)^{n} - \sum_{k=1}^{\floor{\frac{n}{2}}} c_{k}^{n} cosh((n-2k)x) + \delta_{(\floor{\frac{n}{2}}, \frac{n}{2})} \frac{c_{\frac{n}{2}}}{2}
+\label{equation-pb-3-coshnx-decomp}
+\end{equation}
+
+Soit $x$ tel que $cosh(x)$ est un entier naturel.
+Par récurrence, montrons que pour tout entier naturel $n$, $cosh(nx)$ est un entier naturel. 
+Pour $n = 1$, on a $cosh(nx)=cosh(x)$ est un entier naturel.
+
+\begin{equation}
+\textrm{Soit} \quad n, \quad \textrm{tel que pour tout} \quad k \leq n, \quad cosh(kx) \quad \textrm{est un entier naturel.}
+\label{equation-pb-3-coshnx-hypothese}
+\end{equation}
+
+Donc:
+
+\begin{equation}
+\forall k \leq \floor{\frac{n+1}{2}}, \quad c_{k}^{n+1} cosh((n+1-2k)x) \quad \textrm{est un entier naturel}
+\label{equation-pb-3-forall-coshlx}
+\end{equation}
+
+Car $\forall k \quad \textrm{tel que,} \quad 1 \leq k \leq \floor{\frac{n+1}{2}}$, $0 \leq n+1-2k \leq n$, l'hypothèse (\ref{equation-pb-3-coshnx-hypothese}) est applicable pour $l=n+1-2k$ et $c_{k}^{n+1} = \binom{n + 1}{k}$ est un entier. 
+
+Aussi, 
+
+\[\delta_{(\floor{\frac{n+1}{2}}, \frac{n+1}{2})} \frac{c_{\frac{n+1}{2}}^{n+1}}{2} = \left\{
+	\begin{array}{l}
+	\frac{c_{\frac{n+1}{2}}^{n+1}}{2} \quad \textrm{si} \quad n+1 \quad \textrm{est pair}\\
+	0 \quad \textrm{si} \quad n+1 \quad \textrm{est impair}
+	\end{array}
+\right.\]
+
+Si $n+1$ est pair,
+
+\[c_{\frac{n+1}{2}}^{n+1} = \binom{n+1}{\frac{n+1}{2}} \implies c_{\frac{n+1}{2}}^{n+1} = \frac{(n+1)!}{(\frac{n+1}{2})!(\frac{n+1}{2})!}  \implies c_{\frac{n+1}{2}}^{n+1} = 2 \frac{n!}{(\frac{n-1}{2})!(\frac{n+1}{2})!} \]
+
+\[c_{\frac{n+1}{2}}^{n+1} = 2\binom{n}{\frac{n+1}{2}} \implies c_{\frac{n+1}{2}}^{n+1} = 2c_{\frac{n+1}{2}}^{n} \implies \frac{c_{\frac{n+1}{2}}^{n+1}}{2} = c_{\frac{n+1}{2}}^{n} \]
+
+Donc: 
+
+\begin{equation}
+\delta_{(\floor{\frac{n+1}{2}}, \frac{n+1}{2})} \frac{c_{\frac{n+1}{2}}^{n+1}}{2} = \left\{
+	\begin{array}{l}
+	c_{\frac{n+1}{2}}^{n} \quad \textrm{si} \quad n+1 \quad \textrm{est pair}\\
+	0 \quad \textrm{si} \quad n+1 \quad \textrm{est impair}
+	\end{array}
+\right.
+\label{equation-pb-3-cfloor-half-nplusone}
+\end{equation}
+
+D'après (\ref{equation-pb-3-coshnx-decomp}),
+
+\[cosh((n+1)x) = 2^{n}cosh(x)^{n+1} - \sum_{k=1}^{\floor{\frac{n+1}{2}}} c_{k}^{n+1} cosh((n+1-2k)x) + \delta_{(\floor{\frac{n+1}{2}}, \frac{n+1}{2})} \frac{c_{\frac{n+1}{2}}}{2}\]
+
+et 
+
+\[cosh((n+1)x) > 0 \quad \textrm{pour tout} \quad x \quad \textrm{nombres réel strictement positifs}\]
+
+En utilisant les remarques (\ref{equation-pb-3-forall-coshlx}), (\ref{equation-pb-3-cfloor-half-nplusone}) et le fait que $cosh(x)$ est un entier naturel alors $cosh((n+1)x)$ est un entier.
+
+\bigskip
+
+Ainsi, si $x$ est un nombre réel tel que $cosh(x)$ est un entier naturel alors pour tout entier naturel $n$, $cosh(nx)$ est un entier naturel.
+
+\bigskip
+
+Pour conclure, en utilisant l'expression de $x_{n}$ en fonction de $a_{1}$, (\ref{equation-pb-3-reccur-xn}) et l'implication précédente, nous pouvons déduire que:
+
+\bigskip
+
+Si $c$ est un nombre entier naturel non nul, alors $x_{n}$ est un entier pour tout $n \geq 1$.
+ 
 \section{Jour 2}
 \subsection{Problème 4: (taux de réussite: 4/178)}
 \subsection{Problème 5: (taux de réussite: 17/178)}
