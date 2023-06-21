@@ -719,6 +719,118 @@ Pour conclure, en utilisant l'expression de $x_{n}$ en fonction de $a_{1}$, (\re
 
 Si $c$ est un nombre entier naturel non nul, alors $x_{n}$ est un entier pour tout $n \geq 1$.
  
+\subsubsection{Solution 2 - Montrer que pour tout $n \geq 2$, $x_{n+1} = 2cx_{n} - x_{n-1}$}
+
+\bigskip
+
+\textit{Montrons par récurrence que pour tout entier naturel $n \geq 2$, $x_{n+1} = 2cx_{n} - x_{n-1}$}
+
+\bigskip
+
+Pour $n = 1, 2$ et $3$, on a:
+\[x_{1} = c \]
+\[x_{2} = c^2 + \sqrt{c^2 - 1}\sqrt{c^2 - 1} \implies x_{2} = 2c^2 - 1 \]
+\[x_{3} = c(2c^2 - 1) + \sqrt{c^2 - 1}\sqrt{(2c^2 -  1)^2 - 1} \implies x_{3} = 2c^3 - c + \sqrt{c^2 - 1}\sqrt{4c^2(c^2 - 1)} \]
+\[x_{3} = 2c^3 - c + (c^2 - 1)(2c) \implies x_{3} = 4c^3 - 3c \implies x_{3} = 2c(2c^2 - 1) - c \]
+
+\begin{equation}
+\left\{
+	\begin{array}{l}
+	x_{1} = c\\
+	x_{2} = 2c^2 - 1\\
+	x_{3} = 2c(2c^2 - 1) - c
+	\end{array}
+\right.
+\label{equation-pb-3-sol-2-x1x2x3}
+\end{equation}
+
+D'où:
+
+\begin{equation}
+x_{3} = 2cx_{2} - x_{1}
+\label{equation-pb-3-sol-2-x3fctx1x2}
+\end{equation}
+
+Donc pour $n=2$, on a: $x_{n+1} = 2cx_{n} - x_{n-1}$.
+
+\bigskip
+
+Supposons que pour un certain $n \geq 2$, on a: $\forall k, 2 \leq k \leq n, x_{k+1} = 2cx_{k} - x_{k-1}$. Alors, on a d'après la définition de la suite $x_{n}$,
+
+\begin{equation}
+x_{n+2} = cx_{n+1} + \sqrt{c^2 - 1}\sqrt{x_{n+1}^2 - 1}
+\label{equation-pb-3-sol-2-xnplustwofctxnplusone}
+\end{equation}
+
+D'après l'hypothèse, on a:
+
+\[x_{n+1}^2 = (2cx_{n} - x_{n-1})^2 \implies x_{n+1}^2 = 4c^{2}x_{n}^{2} - 4cx_{n}x_{n-1} + x_{n-1}^{2} \]
+\[x_{n+1}^2 - 1 = (4c^{2}x_{n}^{2} - 4cx_{n}x_{n-1}) + (x_{n-1}^{2} - 1) \]
+\[(c^2 - 1)(x_{n+1}^2 - 1) = (c^{2} - 1)(4c^{2}x_{n}^{2} - 4cx_{n}x_{n-1}) + (c^{2} - 1)(x_{n-1}^{2} - 1) \]
+
+Or, d'après la définition de la suite $x_{n}$ selon l'équation (\ref{equation-pb-3-sol}):
+
+\[(c^{2} - 1)(x_{n-1}^{2} - 1) = (x_{n} - cx_{n-1})^{2} \]
+
+Donc:
+
+\[(c^2 - 1)(x_{n+1}^2 - 1) = (c^{2} - 1)(4c^{2}x_{n}^{2} - 4cx_{n}x_{n-1}) + (x_{n}^{2} - 2c x_{n}x_{n-1} + c^{2}x_{n-1}^{2}) \]
+\[(c^2 - 1)(x_{n+1}^2 - 1) = (4c^{4} - 4c^{2} + 1)x_{n}^{2} - 2c(2c^{2} - 1)x_{n-1}x_{n} + c^{2}x_{n-1}^{2} \]
+
+Aussi:
+
+\[(cx_{n+1} - x_{n})^{2} = c^{2}x_{n+1}^{2} - 2cx_{n+1}x_{n} + x_{n}^{2} \]
+
+D'après l'hypothèse de la récurrence, pour $k=n$:
+
+\[x_{n+1} = 2cx_{n} - x_{n-1} \quad \textrm{et} \quad x_{n+1}^2 = 4c^{2}x_{n}^{2} - 4cx_{n}x_{n-1} + x_{n-1}^{2} \]
+
+Donc:
+
+\[(cx_{n+1} - x_{n})^{2} = c^{2}(4c^{2}x_{n}^{2} - 4cx_{n}x_{n-1} + x_{n-1}^{2}) - 2c(2cx_{n} - x_{n-1})x_{n} + x_{n}^{2} \]
+\[(cx_{n+1} - x_{n})^{2} = (4c^{4} - 4c^{2} + 1)x_{n}^{2} - 2c(2c^{2} - 1)x_{n-1}x_{n} + c^{2}x_{n-1}^{2} \]
+
+D'où:
+
+\[(c^2 - 1)(x_{n+1}^2 - 1) = (cx_{n+1} - x_{n})^{2}\]
+
+L'équation (\ref{equation-pb-3-sol-2-xnplustwofctxnplusone}) donne:
+\[x_{n+2} = cx_{n+1} + (cx_{n+1} - x_{n}) \quad \textrm{car} \quad cx_{n+1} \geq c^{2}x_{n} \geq x_{n} \quad (\textrm{car} \quad c \geq 1)\]
+\[x_{n+2} = 2cx_{n+1} - x_{n}\]
+
+Ainsi, par récurrence, pour tout $n \geq 2$: 
+
+\begin{equation}
+x_{n+1} = 2cx_{n} - x_{n-1}
+\label{equation-pb-3-sol-2-xnplusonefct-xn-xnminusone}
+\end{equation}
+
+\bigskip
+
+\textit{Montrons par récurrence sur $n$ que si $c$ est un entier naturel alors pour tout $n \geq 1, x_{n}$ est un entier naturel}
+
+\bigskip
+
+Supposons que $c$ est un entier naturel non nul.
+
+\bigskip
+
+Pour $n = 1$, $x_{1} = c$ est un entier naturel non nul. Pour $n=2$, l'expression de $x_{2}$ donnée par l'équation (\ref{equation-pb-3-sol-2-x1x2x3}) est: $x_{2}=2c^{2} - 1$. Donc $x_{2}$ est un entier naturel non nul.
+
+Supposons que pour un certain $n \geq 2$, $\forall k, 1 \leq k \leq n, x_{k}$ est un entier naturel non nul. 
+
+\bigskip
+
+L'équation (\ref{equation-pb-3-sol-2-xnplusonefct-xn-xnminusone}) implique que $x_{n+1} = 2cx_{n} - x_{n-1}$. Or d'après l'hypothèse de récurrence $x_{n}$ et $x_{n-1}$ sont des entiers naturels non nuls. Donc, $x_{n+1}$ est un entier relatif. Aussi, $x_{n+1} \geq 1$ car les termes de l'expression de $x_{n+1} = cx_{n} + \sqrt{c^2 - 1}\sqrt{x_{n}^2 - 1}$ selon (\ref{equation-pb-3-sol}) sont tels que $cx_{n} \geq 1$ et $\sqrt{c^2 - 1}\sqrt{x_{n}^2 - 1} \geq 0$ car $c \geq 1$ et $x_{n} \geq 1$. D'où, $x_{n+1}$ est un entier naturel non nul.
+
+\bigskip
+
+Ainsi par récurrence, $\forall n \geq 1$, $x_{n}$ est un entier naturel non nul.
+
+\bigskip
+
+Pour conclure, si $c$ est un nombre entier naturel non nul, alors $x_{n}$ est un entier naturel pour tout $n \geq 1$.
+
 \section{Jour 2}
 \subsection{Problème 4: (taux de réussite: 4/178)}
 \subsection{Problème 5: (taux de réussite: 17/178)}
