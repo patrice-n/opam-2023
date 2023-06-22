@@ -1,4 +1,6 @@
 \documentclass[12pt,a4paper,article]{memoir}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 \usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
 \usepackage{amssymb}
 \usepackage{yhmath}
@@ -47,6 +49,16 @@
 
 % see: https://www.physicsread.com/latex-floor-symbol/
 \newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
+% see: https://tex.stackexchange.com/questions/73862/how-can-i-make-a-clickable-table-of-contents
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=red,
+    filecolor=red,
+    linkcolor=red,
+    urlcolor=red
+}
 
 % See the ``Article customise'' template for come common customisations
 \title{Olympiades Panafricaines Mathématiques 2023 \newline Quelques solutions}
@@ -333,7 +345,7 @@ Par conséquent, nous avons montré que:
 
 \subsection{Problème 2: (taux de réussite: 20/178)}
 
-\subsubsection{Solution 1 - Utilisation d'une identité remarquable de factorisation}
+\subsubsection{Solution 1 - Utilisation d'une identité remarquable}
 
 Trouvons tous les nombres entiers naturels non nuls $m$ et $n$ qui n'ont pas de diviseur commun plus grand que $1$ tels que :
 \begin{equation}
@@ -719,7 +731,7 @@ Pour conclure, en utilisant l'expression de $x_{n}$ en fonction de $a_{1}$, (\re
 
 Si $c$ est un nombre entier naturel non nul, alors $x_{n}$ est un entier pour tout $n \geq 1$.
  
-\subsubsection{Solution 2 - Montrer que pour tout $n \geq 2$, $x_{n+1} = 2cx_{n} - x_{n-1}$}
+\subsubsection{Solution 2 - Montrer $\forall n \geq 2$, $x_{n+1} = 2cx_{n} - x_{n-1}$}
 
 \bigskip
 
