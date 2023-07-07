@@ -6,6 +6,7 @@
 \usepackage{yhmath}
 \usepackage{amsmath}
 \usepackage{tkz-euclide}
+\usepackage{tkz-tab}
 \usepackage[backend=biber]{biblatex} %Imports biblatex package
 \addbibresource{opam-2023.bib} %Import the bibliography file
 %Set the font (output) encoding
@@ -1239,6 +1240,315 @@ Enfin, si l'on connaît la valeur maximale de $n$ d'avance, l'on pourrait se con
 \end{myremark}
 
 \subsection{Problème 5: (taux de réussite: 17/178)}
+Pour $a$ et $b$ des nombres réels avec $a \neq 0$. Montrons que les racines du polynôme
+
+\begin{equation}
+P(x) = ax^4 - 4ax^3 + (5a + b)x^2 - 4bx + b
+\label{equation-pb-5-sol}
+\end{equation}
+
+sont réelles et strictement positives si et seulement si $a=b$.
+
+\subsubsection{Solution 1 - Utilisation de tableau de variation}
+
+\textbf{Montrons que si $a$ est négatif cela revient au même que de supposer que $a$ est positif.}
+
+\bigskip
+
+En effet, si $a$ est négatif, posons $a' = -a$ et $b' = -b$, on a: $a'$ est positif, alors d'après l'équation (\ref{equation-pb-5-sol}):
+
+\[P(x) = -a'x^4 + 4a'x^3 - (5a' + b')x^2 + 4b'x - b' \]
+\[P(x) = -(a'x^4 - 4a'x^3 + (5a' + b')x^2 - 4b'x + b')\]
+
+Les racines de $P(x)$ sont les mêmes que les racines de $-P(x)$. Aussi, l'expression du polynôme $P$ en fonction de $a$ et $b$ est la même que l'expression du polynôme $-P$ en fonction de $a'$ et $b'$. D'où, l'assertion 
+
+\bigskip
+
+\textit{les racines du polynôme $P(x)$ sont réelles et strictement positives si et seulement si $a = b$} $\Longleftrightarrow$ \textit{les racines du polynôme $P(x)$ sont réelles et strictement positives si et seulement si $a' = b'$}
+
+\bigskip
+
+Puisque $a \neq 0$, nous pouvons donc montrer l'équivalence:
+
+\bigskip
+
+Les racines du polynôme $P(x)$ sont réelles et strictement positives si et seulement si $a=b$ avec la condition $a > 0$.
+
+\bigskip
+
+\textbf{Montrons que les racines du polynôme $P(x)$ sont réelles strictement positives alors $a=b$.}
+
+\bigskip
+
+Soient $a$ et $b$ des nombres réels avec $a \neq 0$. Supposons que les racines du polynôme $P(x)$ de l'équation (\ref{equation-pb-5-sol}) sont réelles strictement positives.
+
+\bigskip
+
+\textit{Montrons que $a$ et $b$ ont le même signe.}
+
+\bigskip
+
+D'après l'hypothèse, nous pouvons écrire le polynôme $P(x)$ sous la forme:
+\[P(x) = a(x-\alpha)(x-\beta)(x-\gamma)(x-\mu), \quad \textrm{avec} \quad \alpha, \beta, \gamma, \mu \in \mathbb{R}^{*}_{+}\]
+
+Donc:
+
+\[P(x) = a[x^4 - (\alpha + \beta + \gamma + \mu)x^3 + (\alpha\beta + (\alpha + \beta)(\gamma + \mu) + \gamma\mu)x^2 + ((\alpha + \beta)\mu\gamma - (\gamma + \mu)\alpha\beta)x + \alpha\beta\gamma\mu]\]
+
+D'où, en utilisant l'équation (\ref{equation-pb-5-sol}), nous obtenons:
+
+\begin{equation}
+\left\{
+	\begin{array}{l}
+	\frac{b}{a} = \alpha\beta\gamma\mu\\
+	-4\frac{b}{a} = (\alpha + \beta)\mu\gamma - (\gamma + \mu)\alpha\beta\\
+	5+\frac{b}{a} = \alpha\beta + (\alpha + \beta)(\gamma + \mu) + \gamma\mu\\
+	4 = \alpha + \beta + \gamma + \mu
+	\end{array}
+\right.
+\label{equation-rel-racines-coef}
+\end{equation}
+
+Puisque $\alpha > 0$, $\beta > 0$, $\gamma > 0$ et $\mu > 0$ alors:
+\[\alpha\beta\gamma\mu > 0 \implies \quad \textrm{d'après la première ligne de (\ref{equation-rel-racines-coef}), on obtient:}  \quad \frac{b}{a} > 0\]
+
+Ainsi, $a$ et $b$ ont le même signe.
+
+\bigskip
+
+La dérivée première et la dérivée seconde du polynôme $P$ sont données par les relations:
+
+\begin{equation}
+P'(x) = 2[2ax^3 - 6ax^2+(5a+b)x-2b]
+\label{equation-pb-5-pderpre}
+\end{equation}
+
+\begin{equation}
+P"(x) = 12a\left[(x-1)^2 - \frac{a-b}{6a}\right]
+\label{equation-pb-5-pdersec}
+\end{equation}
+
+\bigskip
+
+Supposons que $a \neq b$, alors il y a deux possibilités: 
+
+\[a > b \quad \textrm{ou} \quad a < b\]
+
+\textit{Possibilité 1 - supposons que $a > b$ avec $a > 0$.}
+
+\bigskip
+
+Comme $a$ et $b$ ont le même signe d'après la démonstration précédente, alors $a > 0$, $b > 0$ et $a > b$. Ainsi le polynôme $P"$ admet des racines réelles qui sont:
+
+\[r_{1} = 1 - r \quad \textrm{,} \quad r_{2} = 1 + r \quad \textrm{avec} \quad r = \sqrt{\frac{a-b}{6a}}\]
+
+\[P"(r_{1}) = 0 \quad \textrm{et} \quad P"(r_{2}) = 0\]
+
+\[P'(1 + r) =  2[2a(1+ r)^3 - 6a(1+ r)^2+(5a+b)(1+ r)-2b] \]
+\[P'(1 + r) = 2[2ar^3 + (b-a)r + (a-b)]\]
+\[\textrm{Or,} \quad r^2 = \frac{a-b}{6a} \implies P'(1+ r) = 2(a-b)\frac{3 - 2r}{3}\]
+
+De même, en remplaçant $r$ par $-r$, on a:
+
+\[P'(1- r) = 2(a-b)\frac{3 + 2r}{3}\]
+
+Donc:
+
+\[P'(r_{1}) = 2(a-b)\frac{3 + 2r}{3} \quad \textrm{et} \quad P'(r_{2}) = 2(a-b)\frac{3 - 2r}{3}\]
+
+De plus,
+
+\[0 < r^2 = \frac{a-b}{6a} <  \frac{a}{6a} = \frac{1}{6} \implies 4r^2 < \frac{4}{6} = \frac{2}{3} < 1 \implies 2r < 1\]
+
+Donc:
+
+\[a-b > 0 \quad \textrm{et} \quad r>0 \implies 2(a-b)\frac{3 + 2r}{3} > 0 \implies P'(r_{1}) > 0\]
+\[\frac{3 - 2r}{3} > 0 \implies 2(a-b)\frac{3 - 2r}{3} > 0 \implies P'(r_{2}) > 0\]
+
+Aussi,
+
+\begin{equation}
+P'(0) = -4b \quad \textrm{et} \quad P'(1) = 2(a-b)
+\label{equation-pb-5-pderpremval}
+\end{equation}
+
+\begin{equation}
+P(0) = b \quad \textrm{et} \quad P(1) = 2(a-b)
+\label{equation-pb-5-pval}
+\end{equation}
+
+Nous obtenons ainsi le tableau de variation de la fonction polynômiale $P(x)$:
+
+\bigskip
+
+\begin{center}
+\begin{tikzpicture}
+	\tkzTabInit[lgt = 2.5, espcl = 2, deltacl = 0.5]{$x$ / 1 , $P''(x)$ / 1, $P'(x)$ / 3, $P'(x)$ / 1, $P(x)$ / 3}{$-\infty$, $0$, $r'$, $r_{1}$, $1$, $r_{2}$, $+\infty$}
+	\tkzTabLine{,,,+,,, z, -,, -,z,+,}
+	\tkzTabVar{-/ $-\infty$, R/, R/, +/ $2(a-b)\frac{3 + 2r}{3}$, R/, -/ $2(a-b)\frac{3 - 2r}{3}$, +/ $+\infty$}
+	\tkzTabIma{1}{4}{3}{$0$}
+	\tkzTabIma{1}{4}{2}{$-4b$}
+	\tkzTabIma{4}{6}{5}{$2(a-b)$}
+	\tkzTabLine{,-, ,,z,, ,, , +, ,}
+	\tkzTabVar{+/ $+\infty$, R/, -/ $P(r')$, R/, R/, R/, +/ $+\infty$}
+	\tkzTabIma{1}{3}{2}{$b$}
+	%\tkzTabIma{3}{7}{4}{$P(r_{1})$}
+	\tkzTabIma{3}{7}{5}{$2(a-b)$}
+	%\tkzTabIma{3}{7}{6}{$P(r_{2})$}
+\label{tab-var-p-asupb}
+\end{tikzpicture}
+\end{center}
+
+\bigskip
+
+D'après le tableau de variation de la fonction polynômiale $P(x)$, il existe $r' \in ]0,1[$, tel que $P'(r') = 0$.
+Aussi, selon le signe de $P(r')$, le polynôme $P$ admet soit deux racines réelles distinctes, une racine réelle ou aucune racine réelle. En effet, 
+
+\begin{equation}
+\textrm{Si} \quad P(r') > 0 \implies P(x) > 0, \quad \forall x \in \mathbb{R} \quad \textrm{alors} \quad P \quad \textrm{n'admet aucune racine réelle}
+\label{equation-sig-pder-rppos}
+\end{equation}
+
+\begin{equation}
+\textrm{Si} \quad P(r') = 0 \implies \textrm{le polynôme} \quad P \quad \textrm{admet une seule racine réelle} \quad r' \in ]0,1[
+\label{equation-sig-pder-rpnul}
+\end{equation}
+
+\begin{equation}
+\textrm{Si} \quad P(r') < 0 \implies \textrm{le polynôme} \quad P \quad \textrm{admet deux racines réelles} \quad r_{(1)} \quad \textrm{et} \quad r_{(2)} \in ]0,1[
+\label{equation-sig-pder-rpneg}
+\end{equation}
+
+Rappelons l'hypothèse de départ, qui spitule que $P$ admet des racines réelles strictement positives. 
+
+\bigskip
+
+La dernière implication de la relation (\ref{equation-sig-pder-rppos}) est absurde par rapport à l'hypothèse de départ.
+
+\bigskip
+
+D'après l'hypothèse, les racines de $P$ sont réelles et strictement positives. D'après la relation (\ref{equation-sig-pder-rpnul}), $P$ admet une seule racine réelle $r' \in ]0,1[$. Ainsi, il s'agit d'une racine de multiplicité $4$. La dernière équation des relations (\ref{equation-rel-racines-coef}) implique donc que: $4r'=4 \implies r'=1$. Ce qui est absurde car  $0 < r' < 1$.
+
+\bigskip
+
+Enfin, selon la relation (\ref{equation-sig-pder-rpneg}), $P$ admet deux racines réelles $r_{(1)} \in ]0,1[$ et $r_{(2)} \in ]0,1[$. Ainsi, il s'agit de racines de multiplicités combinées $m_{(1)}$ et $m_{(2)}$ égale à $4$, c'est-à-dire $m_{(1)} + m_{(2)} = 4$. La dernière équation des relations (\ref{equation-rel-racines-coef}) implique donc que: $m_{(1)}r_{(1)} + m_{(2)}r_{(2)} =4$. Or:
+
+\[0 < r_{(1)} < 1 \quad \textrm{et} \quad 0 < r_{(2)} < 1 \implies 0 < m_{(1)}r_{(1)} + m_{(2)}r_{(2)} < m_{(1)} + m_{(2)} = 4 \]
+
+Ce qui contredit  $m_{(1)}r_{(1)} + m_{(2)}r_{(2)} =4$. C'est donc absurde.
+
+\bigskip
+
+Ainsi, nous avons montré par absurde que $a$ n'est pas strictement supérieur à $b$ si les racines de $P$ sont réelles strictement positives.
+
+\bigskip
+
+\textit{Possibilité 2 - supposons que $a < b$ avec $a > 0$}
+
+\bigskip
+
+Comme $a$ et $b$ ont le même signe, alors $a > 0$, $b > 0$ et $a < b$. Cela implique que $-\frac{a-b}{6a} > 0$. Ainsi le polynôme $P"$ est strictement positif. Nous avons ainsi le tableau de variation suivant pour la fonction polynômiale $P(x)$.
+
+\bigskip
+
+\begin{center}
+\begin{tikzpicture}
+	\tkzTabInit[lgt = 2.5, espcl = 3, deltacl = 0.5]{$x$ / 1 , $P''(x)$ / 1, $P'(x)$ / 3, $P'(x)$ / 1, $P(x)$ / 3}{$-\infty$, $0$, $1$, $r"$, $+\infty$}
+	\tkzTabLine{,,,,+,,,,}
+	\tkzTabVar{-/ $-\infty$, R/, R/, R/, +/ $+\infty$}
+	\tkzTabIma{1}{5}{2}{$-4b$}
+	\tkzTabIma{1}{5}{3}{$2(a-b)$}
+	\tkzTabIma{1}{5}{4}{$0$}
+	\tkzTabLine{,,,-,,,z,+,}
+	\tkzTabVar{+/ $+\infty$, R/, R/, -/ $P(r")$, +/ $+\infty$}
+	\tkzTabIma{1}{4}{2}{$b$}
+	\tkzTabIma{1}{4}{3}{$2(a-b)$}
+\label{tab-var-p-ainfb} 
+\end{tikzpicture}
+\end{center}
+
+\bigskip
+
+Le tableau de variation ci-dessus est celui de la fonction polynômiale $P(x)$ lorsque $a < b$. Puisque $b > 0$, $2(a-b) < 0$ alors à l'aide du tableau de variation de $P(x)$, nous pouvons dire que la fonction polynômiale $P(x)$ a exactement deux racines réelles $r_{(1')}$ et $r_{(2')}$ avec $0 < r_{(1')} < 1$ et $1 < r_{(2')}$. D'après l'hypothèse, ce sont donc des racines de multiplicités combinées $m_{(1')}$ et $m_{(2')}$ égale à $4$, c'est-à-dire $m_{(1')} + m_{(2')} = 4$. La dernière équation des relations (\ref{equation-rel-racines-coef}) implique donc que: $m_{(1')}r_{(1')} + m_{(2')}r_{(2')} =4$. D'où:
+
+\begin{equation}
+\left\{
+	\begin{array}{l}
+	0 < r_{(1')} < 1\\
+	1 < r_{(2')}\\
+	m_{(1')} + m_{(2')} = 4\\
+	m_{(1')}r_{(1')} + m_{(2')}r_{(2')} = 4\\
+	r_{(1')}^{m_{(1')}}r_{(2')}^{m_{(2')}} = \frac{b}{a}
+	\end{array}
+\right.
+\label{equation-rel-racine-pol}
+\end{equation}
+
+Ainsi, nous avons:
+
+\[r_{(2')} = \frac{4 - m_{(1')}r_{(1')}}{4 - m_{(1')}} \implies^{\textrm{d'après (\ref{equation-rel-racine-pol})}} \quad r_{(1')}^{m_{(1')}}\left(\frac{4 - m_{(1')}r_{(1')}}{4 - m_{(1')}}\right)^{4 - m_{(1')}} = \frac{b}{a}\]
+
+Donc:
+
+\begin{equation}
+r_{(1')}^{m_{(1')}}(4 - m_{(1')}r_{(1')})^{4 - m_{(1')}} - \frac{b}{a}(4 - m_{(1')})^{4 - m_{(1')}} = 0
+\label{equation-val-fct-rac-posleq1}
+\end{equation}
+ 
+ Posons:
+ 
+ \[f(r) = r^{m_{(1')}}(4 - m_{(1')}r)^{4 - m_{(1')}} - \frac{b}{a}(4 - m_{(1')})^{4 - m_{(1')}}\]
+ \[f'(r) = 4m_{(1')}(1 - r)r^{m_{(1')} - 1}(4 - m_{(1')}r)^{3 - m_{(1')}}\]
+
+Puisque $1 \leq m_{(1')} \leq 3$, on a:
+
+\[\forall r, \quad 0 < r < 1, \quad f'(r) > 0\]
+
+Ainsi, la fonction $f$ est strictement croissante sur $[0,1]$, or: 
+
+\[
+\left\{
+	\begin{array}{l}
+	f(0) = -\left(\frac{b}{a}\right)(4 - m_{(1')})^{4 - m_{(1')}} < 0,\\
+	f(1) = (1 - \left(\frac{b}{a}\right))(4 - m_{(1')})^{4 - m_{(1')}} < 0 \quad \textrm{car} \quad \frac{b}{a} > 1
+	\end{array}
+\right.
+\]
+
+Donc $f$ est strictement négative sur $[0,1]$, donc:
+
+\[\forall r \in [0,1], \quad f(r) < 0 \Longleftrightarrow \forall r \in [0,1], \quad r^{m_{(1')}}(4 - m_{(1')}r)^{4 - m_{(1')}} < \frac{b}{a}(4 - m_{(1')})^{4 - m_{(1')}}\] 
+
+Ce qui contredit (\ref{equation-val-fct-rac-posleq1}), absurde.
+
+\bigskip
+
+Ainsi, nous avons montré par absurde que l'assertion $a < b$ n'est pas vraie.
+
+\bigskip
+
+Par conséquent, si $a$ et $b$ sont des nombres réels avec $a \neq 0$, tels que les racines du polynôme $P(x)$ de l'équation (\ref{equation-pb-5-sol}) sont réelles strictement positives alors $a = b$.
+
+\bigskip
+
+\textbf{Montrons que si $a = b$ alors les racines du polynôme $P(x)$ de l'équation (\ref{equation-pb-5-sol}) sont réelles strictement positives.}
+
+\bigskip
+
+Supposons que $a = b$, alors:
+
+\[P(x) = a(x^4 - 4x^3 + 6x^2 - 4x + 1) \implies P(x) = a(x - 1)^4\]
+
+Ainsi, $1$ est la seule racine du polynôme $P$ de multiplicité $4$. D'où les racines du polynôme $P$ sont réelles strictement positives.
+
+\bigskip
+
+Pour conclure:
+
+\bigskip
+
+Les racines du polynôme $P$ définit dans l'équation (\ref{equation-pb-5-sol}) sont réelles et strictement positives si et seulement si $a=b$.
+
 \subsection{Problème 6: (taux de réussite: 3/178)}
 
 \printbibliography %Prints bibliography
