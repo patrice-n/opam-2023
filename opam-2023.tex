@@ -1143,7 +1143,7 @@ a_{6} = 14 + a + 1 = 15 + a \quad \textrm{avec} \quad a > 0
 
 \begin{equation}
 n = 10a_{6} + b - 10 \quad \textrm{avec} \quad b > 0
-\label{equation-dec-a6}
+\label{equation-dec-n-a6}
 \end{equation}
 
 Si $b \leq 5$, on prend: 
@@ -1548,6 +1548,205 @@ Pour conclure:
 \bigskip
 
 Les racines du polynôme $P$ définit dans l'équation (\ref{equation-pb-5-sol}) sont réelles et strictement positives si et seulement si $a=b$.
+
+\subsubsection{Solution 2 - Utilisation de l'inégalité AGH et/ou de Muirhead}
+
+Dans cette solution, nous allons montrer que si les racines de $P(x)$ sont réelles strictement positives alors $a=b$. La réciproque étant démontrée par la dernière partie de la solution précédente dans laquelle la résolution utilisée est simple et indépendante de l'intitulé de la méthode de la solution 1.
+
+\bigskip
+
+\textbf{Montrons que si les racines du polynôme $P(x)$ de l'équation (\ref{equation-pb-5-sol}) sont réelles strictement positives alors $a=b$.}
+
+\bigskip
+
+Soient $a$ et $b$ des nombres réels avec $a \neq 0$. Supposons que les racines du polynôme $P(x)$ de l'équation (\ref{equation-pb-5-sol}) sont réelles strictement positives. Ainsi, d'après la relation (\ref{equation-rel-racines-coef}), on obtient ces relations:
+
+\bigskip
+
+\[
+\left\{
+	\begin{array}{l}
+	\frac{b}{a} = \alpha\beta\gamma\mu\\
+	4\frac{b}{a} = (\alpha + \beta)\mu\gamma + (\gamma + \mu)\alpha\beta\\
+	5+\frac{b}{a} = \alpha\beta + (\alpha + \beta)(\gamma + \mu) + \gamma\mu\\
+	4 = \alpha + \beta + \gamma + \mu
+	\end{array}
+\right.
+\]
+
+\bigskip
+
+\textit{Montrons que $a \leq b$.}
+
+\bigskip
+
+Puisque les racines du polynôme $P$ ($\alpha$, $\beta$, $\gamma$ et $\mu$) sont strictement positives alors, leur moyenne harmonique est plus petite que leur moyenne géométrique. D'où:
+
+\begin{equation}
+\frac{4}{\frac{1}{\alpha} + \frac{1}{\beta} + \frac{1}{\gamma} + \frac{1}{\mu}} \leq (\alpha \beta \gamma \mu)^{\frac{1}{4}}
+\label{equation-ihg}
+\end{equation}
+
+Aussi, en divisant la deuxième équation de la relation (\ref{equation-rel-racines-coef}) par la première équation, on obtient:
+
+\[4 = \frac{1}{\alpha} + \frac{1}{\beta} + \frac{1}{\gamma} + \frac{1}{\mu} \implies \frac{4}{\frac{1}{\alpha} + \frac{1}{\beta} + \frac{1}{\gamma} + \frac{1}{\mu}} = 1\]
+
+La moyenne harmonique est égale à $1$ et en utilisant la première équation de la relation (\ref{equation-rel-racines-coef}), la moyenne géométrique est égale à $\left(\frac{b}{a}\right)^{\frac{1}{4}}$. Ainsi:
+
+\[1 \leq \left(\frac{b}{a}\right)^{\frac{1}{4}} \implies a \leq b\]
+
+\bigskip
+
+\textit{Montrons que $a \geq b$.}
+
+\bigskip
+
+\textit{Première approche - l'inégalité arithmétique géométrique (IAG)}
+
+\bigskip
+
+Comme $\alpha$, $\beta$, $\gamma$ et $\mu$ sont strictement positives alors, leur moyenne géométrique est plus petite que leur moyenne arithmétique. D'où:
+
+\begin{equation}
+\frac{\alpha + \beta + \gamma + \mu}{4} \geq (\alpha \beta \gamma \mu)^{\frac{1}{4}}
+\label{equation-iag}
+\end{equation}
+
+Aussi, d'après la dernière équation de la relation (\ref{equation-rel-racines-coef}), la moyenne arithmétique est égale à $1$. Or, la moyenne géométrique est égale à $\left(\frac{b}{a}\right)^{\frac{1}{4}}$. Ainsi:
+
+\[1 \geq \left(\frac{b}{a}\right)^{\frac{1}{4}} \implies a \geq b\]
+
+\bigskip
+
+\textit{Deuxième approche - Inégalités de Muirhead}
+
+\bigskip
+
+Notons:
+
+\[c = (2, 0, 0, 0) \quad \textrm{,} \quad d = (1, 1, 0, 0)\]
+
+Et avec, $\Omega$ l'ensemble des permutations de $\{1, 2, 3, 4\}$ et $x_{1}, x_{2}, x_{3}$ et $x_{4}$ des nombres réels positifs, 
+
+\[\floor{c} = \frac{1}{4!}\sum_{\sigma \in \Omega} x_{\sigma_{1}}^{2}x_{\sigma_{2}}^{0}x_{\sigma_{3}}^{0}x_{\sigma_{4}}^{0} \quad \textrm{,} \quad \floor{d} = \frac{1}{4!}\sum_{\sigma \in \Omega} x_{\sigma_{1}}^{1}x_{\sigma_{2}}^{1}x_{\sigma_{3}}^{0}x_{\sigma_{4}}^{0}\]
+
+Donc:
+
+\[\floor{c} = \frac{3!}{4!}\sum_{\sigma \in \Omega} x_{\sigma_{1}}^{2} =  \frac{1}{4}\sum_{\sigma \in \Omega} x_{\sigma_{1}}^{2} \quad \textrm{,} \quad \floor{d} = \frac{2!*2!}{4!}\sum_{\sigma \in \Omega} x_{\sigma_{1}}^{1}x_{\sigma_{2}}^{1} = \frac{1}{6}\sum_{\sigma \in \Omega} x_{\sigma_{1}}x_{\sigma_{2}}\]
+
+On a:
+
+\[c \geq d\]
+
+Car, si nous écrivons $c = (c_{1}, c_{2}, c_{3}, c_{4})$ et $d = (d_{1}, d_{2}, d_{3}, d_{4})$, alors:
+
+\[\forall k \in \{1, 2, 3, 4\},  c_{1} + ... + c_{k} \geq d_{1} + ... + d_{k} \quad \textrm{et} \quad c_{1} + ... + c_{4} = d_{1} + ... + d_{4}\]
+
+D'après l'inégalité de Muirhead (voir la remarque (\ref{exfour})), on obtient:
+
+\[\floor{c} \geq \floor{d}\]
+
+Ce qui implique en posant:
+
+\[x_{1} = \alpha, \quad x_{2} = \beta, \quad x_{3} = \gamma \quad \textrm{et} \quad x_{4} = \mu \quad \text{où, } \alpha, \beta, \gamma, \mu \quad \textrm{sont les racines de $P$} \]
+
+\[\frac{1}{4}(\alpha^2 + \beta^2 + \gamma^2 + \mu^2) \geq \frac{1}{6}(\alpha\beta + \alpha\gamma + \beta\gamma + \alpha\mu + \beta\mu + \gamma\mu) \]
+
+Or
+
+\[\alpha^2 + \beta^2 + \gamma^2 + \mu^2 = (\alpha + \beta + \gamma + \mu)^2 - 2(\alpha\beta + \alpha\gamma + \beta\gamma + \alpha\mu + \beta\mu + \gamma\mu)\]
+
+Et d'après les deux dernières équations de la relation (\ref{equation-rel-racines-coef}):
+
+\[\alpha\beta + \alpha\gamma + \beta\gamma + \alpha\mu + \beta\mu + \gamma\mu = 5 + \frac{b}{a}\]
+\[\alpha + \beta + \gamma + \mu = 4\]
+
+Ainsi:
+
+\[\frac{1}{4}(16 - 2(5 + \frac{b}{a})) \geq \frac{1}{6}(5 + \frac{b}{a}) \implies 3(6 - 2\frac{b}{a}) \geq 2(5 + \frac{b}{a})\]
+
+\[18 - 6\frac{b}{a} \geq 10 + 2\frac{b}{a} \implies -8\frac{b}{a} \geq -8 \implies \frac{b}{a} \leq 1\]
+
+D'où:
+
+\[a \geq b\]
+
+\bigskip
+
+Pour conclure, si les racines du polynôme $P(x)$ de l'équation (\ref{equation-pb-5-sol}) sont réelles strictement positives alors $a=b$.
+
+\bigskip
+
+Cette dernière implication ainsi que la démonstration de la réciproque effectuée à la fin de la solution 2 de ce problème, nous permet de dire que les racines du polynôme $P(x)$ de l'équation (\ref{equation-pb-5-sol}) sont réelles strictement positives si et seulement si  $a=b$.
+
+\bigskip
+
+\begin{myremark}[colback=red!5!white,colframe=blue!75!black,mytitle={Inégalité de Muirhead et des moyennes arithmétique géométrique}, label=exfour]
+Soit $c = (c_{1}, ..., c_{n})$ une suite de nombres réels. Pour toute suite $x_{1}, ..., x_{n}$ de nombres réels positifs, on définit la $c$-moyenne, notée $\floor{c}$, de $x_{1}, ..., x_{n}$ par:
+
+\[\floor{c} = \frac{1}{n!}\sum_{\sigma} x_{\sigma_{1}}^{c_{1}} ... x_{\sigma_{n}}^{c_{n}}\]
+
+où la somme est étendue à toutes les permutations $\sigma$ de $\{1, ..., n\}$.
+
+\bigskip
+
+En notant $d = (d_{1}, ..., d_{n})$, une autre suite de nombres réels, alors:
+
+\bigskip
+
+Si les suites $c$ et $d$ sont décroissantes, on a $\floor{c} \leq \floor{d}$ pour toute suite $x_{1}, ..., x_{n}$ si et seulement si $\forall k \in \{1, ..., n\},  c_{1} + ... + c_{k} \leq d_{1} + ... + d_{k} \quad \textrm{et} \quad c_{1} + ... + c_{n} = d_{1} + ... + d_{n}$
+
+\bigskip
+
+L'IAG (inégalité de la moyenne arithmétique géométrique) peut être déduite de l'inégalité de Muirhead. En effet, l'on peut prendre 
+
+\[c = \left(\frac{1}{n}, ...,\frac{1}{n}\right)\quad \textrm{} \quad d = (1, 0, 0, ...,0)\]
+
+Pour plus de détails sur l'inégalité de Muirhead, se reférer à la page wikipédia suivante (\cite{wikimuirh}).
+\end{myremark}
+
+\begin{myremark}[colback=red!5!white,colframe=blue!75!black,mytitle={Relation entre les coefficients et les racines d'un polynôme dite "de Viète"}, label=exfifth]
+Les formules de Viète permettent d'écrire une relation entre les racines d'un polynôme et ses coefficients. Un énoncé est le suivant: 
+
+\bigskip
+
+Soit $P$, un polynôme de dégré $n$ s'écrivant sous la forme:
+
+\[P(x) = a_{n}x^n + a_{n - 1}x^{n - 1} + ...  + a_{1}x + a_0 \]
+
+avec les coefficients $a_{k}$ pouvant être des nombres réels ou des nombres complexes et $a_{n} \neq 0$. Le polynôme $P$ a $n$ racines complexes non nécéssairement distinctes $r_{1}, r_{2}, ..., r_{n}$ d'après le théorème fondamental de l'algèbre. Les formules de Viète s'écrivent:
+
+\begin{equation}
+\left\{
+	\begin{array}{l}
+	r_{1} + r_{2} + ... + r_{n-1} + r_{n} = -\frac{a_{n-1}}{a_{n}}\\
+	(r_{1} r_{2} + r_{1} r_{3} + ... + r_{1} r_{n}) + ... + (r_{2} r_{3} + ... + r_{2} r_{n}) + ... + r_{n-1} r_{n} = \frac{a_{n-2}}{a_{n}}\\
+	.\\
+	.\\
+	.\\
+	r_{1} r_{2} ... r_{n} = (-1)^{n}\frac{a_{0}}{a_{n}}
+	\end{array}
+\right.
+\label{equation-viete}
+\end{equation}
+
+Ou de manière synthétique:
+
+\begin{equation}
+\forall k \in \{1, 2, ..., n\}, \quad \sum_{1 \leq i_{1} < i_{2} < ... < i_{k} \leq n} \left(\prod_{j=1}^{k}r_{i_{j}}\right) = (-1)^{k}\frac{a_{n-k}}{a_n}
+\label{equation-viete-synth}
+\end{equation}
+
+Les indices $i_{k}$ sont ordonnés dans un ordre croissant pour s'assurer que chaque produit de $k$ racines est utilisé exactement une fois.
+
+\bigskip
+
+Pour plus de détails sur les relations entre les racines de polynôme et les coefficients de celui-ci, se reférer à la page wikipédia suivante (\cite{wikiviete}).
+
+\bigskip
+
+Pour plus de détails sur le théorème fondamental de l'algèbre, se reférer à la page wikipédia suivante (\cite{wikifondalgebra}).
+\end{myremark}
 
 \subsection{Problème 6: (taux de réussite: 3/178)}
 
